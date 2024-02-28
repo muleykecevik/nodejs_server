@@ -1,0 +1,7 @@
+//once npm init -y yaparak package json kur
+//.gitoignore olustur
+//.env olustur
+//readme.md olustur
+//index.js olustur
+//index.js basina 'use strict' yaz
+// nodejs de server i olusturan modul http dir.
