@@ -26,38 +26,61 @@ const app = http.createServer((req, res) => {
     //     res.end('<h1>HOME Page</h1>')
     // }
     //    else if(req.url=='/list'){
-    //     res.end('<h1>HOME Page</h1>')
+    //     res.end('<h1>LIST Page</h1>')
     // } 
     //   else if(req.url=='/test'){
-    //     res.end('<h1>HOME Page</h1>')
+    //     res.end('<h1>TEST Page</h1>')
     // }
 
 
     //add methods
     if (req.url == '/') {
+        console.log();
 
-        if (req.method = 'GET') {
+        if (req.method == 'GET') {  // default GET 
             res.write('this ')
             res.write('is ')
             res.write('home ')
             res.write('page')
             res.end()
-        }
-        else if(req.method=='POST'){
+        } else if (req.method == 'POST') {
+            res.statusCode = 400  // default 200
+            res.statusMessage = "post yapamazsin"
             res.end(' can not use this method')
-        } else if (req.method=='DELETE'){
-            
+        } else if (req.method == 'DELETE') {
+            res.writeHead(405, "silme yapamazsin", {
 
+                // write head ile ayni anda birden fazla icerigi kodlriz
+                "Content-Type": "text/html",
+                "another-header": "another content"
+            })
 
-    } else if (req.url == '/list') {
-        res.end(' cannot use this method')
-    } else if (req.url == '/test') {
-        res.end('<h1> TEST PAGE </>')
+            res.end(' can not use this method')
+
+        }
+        else
+            res.end(' can not use this method')
+
+    }
+
+    else if (req.url == '/list') {
+        const obj = {
+            "error": false,
+            "message": "this is list page",
+            "deneme": "deneme "
+        }
+        res.end(JSON.stringify(obj))
+    }
+    else if (req.url == '/test') {
+        res.end('<h1> TEST Page </> ')
     }
 
 
+})
 
-    // default local api si her zaman 127.0.0.1 dir. listen diyerek bir portu dinle diyoruz. nodejs de genelde 8000 kullanilir. bosta baska port varsa oda kullanilabilir. 
+app.listen(8000, () => console.log(`server runned : http://${HOST}:${PORT}`))
 
 
-}).listen(8000, () => console.log(`server runned : http://${HOST}:${PORT}`))
+// default local api si her zaman 127.0.0.1 dir. listen diyerek bir portu dinle diyoruz. nodejs de genelde 8000 kullanilir. bosta baska port varsa oda kullanilabilir. 
+
+
